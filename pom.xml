@@ -4,10 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <name>Misc resources Shared between projects for chb0github</name>
     <groupId>org.bongiorno</groupId>
     <artifactId>misc</artifactId>
     <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
+    <url>https://github.com/chb0github/misc</url>
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
@@ -26,6 +29,7 @@
 
     <scm>
         <connection>scm:git:https://github.com/chb0github/misc.git</connection>
+        <url>https://github.com/chb0github/misc</url>
     </scm>
 
     <properties>
@@ -220,13 +224,7 @@
             </build>
         </profile>
     </profiles>
-    <repositories>
-        <repository>
-            <id>tmp-mvn</id>
-            <url>http://maven.springframework.org/milestone/</url>
-        </repository>
 
-    </repositories>
     <!--http://datumedge.blogspot.com/2012/05/publishing-from-github-to-maven-central.html-->
     <distributionManagement>
         <snapshotRepository>
