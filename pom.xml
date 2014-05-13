@@ -72,12 +72,7 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>1.8.5</version>
-            <scope>test</scope>
-        </dependency>
+
         <dependency>
             <groupId>net.sourceforge.findbugs</groupId>
             <artifactId>jsr305</artifactId>
@@ -88,32 +83,20 @@
             <artifactId>esper</artifactId>
             <version>4.7.0</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-core</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
+
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
             <version>2.3</version>
         </dependency>
+
+        <!-- This is heavyweight for some basic IO. Find something light to replace it with-->
         <dependency>
             <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
+            <artifactId>spring-security-core</artifactId>
             <version>${spring.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>${spring.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
@@ -129,6 +112,14 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>1.8.5</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>
