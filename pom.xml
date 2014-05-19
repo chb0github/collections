@@ -5,8 +5,10 @@
     <name>Misc resources Shared between projects for chb0github</name>
     <groupId>org.bongiorno</groupId>
     <artifactId>misc</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+
+    <description>Miscellaneous interfaces and implementations for supporting other packages in the same groupId</description>
 
     <url>https://github.com/chb0github/misc</url>
     <licenses>
