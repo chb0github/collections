@@ -47,4 +47,7 @@ public enum Pattern implements Validator<String> {
     public String toString() {
         return pattern;
     }
+
+    private static class Constants {
+    }
 }
