@@ -1,75 +1,65 @@
 package org.bongiorno.misc.utils.io;
 
+import org.apache.commons.collections4.Closure;
+import org.apache.commons.collections4.Predicate;
 import org.apache.commons.collections4.Transformer;
 import org.bongiorno.misc.utils.functions.BufferTransformer;
+import org.bongiorno.misc.utils.functions.predicates.ScanningPredicate;
 
 import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 
 /**
  * @author chribong
  */
-public class ScanningInputStream<T> extends FilterInputStream {
+public class ScanningInputStream extends FilterInputStream {
 
-    private final byte[] convertBuffer;
-    private int convertBuffPos = 0;
+    private final Predicate<Integer> condition;
+    private final Closure<InputStream> callback;
 
-    private long current;
-    private long lookingFor;
-    private Transformer<byte[],T> converter;
-    private int readCount = 0;
-
-    public ScanningInputStream(InputStream in, byte[] lookingFor, BufferTransformer<T> converter) {
+    public ScanningInputStream(Predicate<Integer> condition, Closure<InputStream> callback, InputStream in) {
         super(in);
-        if(lookingFor.length > 8)
-            throw new IllegalArgumentException("only 8 bytes are currently supported");
-
-        this.converter = converter;
-        this.convertBuffer = new byte[converter.getNeededBufferSize()];
-        for (byte bite : lookingFor) {
-            this.lookingFor = (this.lookingFor << 8) | bite;
-        }
-
+        this.callback = callback;
+        this.condition = condition;
     }
 
-    @Override
+    public ScanningInputStream(byte[] lookingFor, Closure<InputStream> callback, InputStream in) {
+        super(in);
+        this.callback = callback;
+        condition = new ScanningPredicate(lookingFor);
+    }
+
+
+    public ScanningInputStream(String lookingFor, Charset charset, Closure<InputStream> callback, InputStream in) {
+        super(in);
+        this.callback = callback;
+        condition = new ScanningPredicate(lookingFor.getBytes(charset));
+    }
+
     public int read() throws IOException {
         int read = super.read();
-        if(convertBuffPos == 0 && lookingFor !=  (current & lookingFor)) {
-            current = (current << 8) | (byte)read;
-        }
-        else {
-            if(convertBuffPos < convertBuffer.length)
-                convertBuffer[convertBuffPos++] = (byte) read;
-        }
+
+        if(condition.evaluate(read))
+            callback.execute(super.in);
+
         return read;
     }
 
+    @Override
+    public int read(byte[] b) throws IOException {
+        return this.read(b, 0, b.length);
+    }
 
     @Override
-    public int read(byte[] b, int off, int len) throws IOException {
-        if (available() > 0 && convertBuffPos < convertBuffer.length) {
-            for(;  readCount < len; readCount++) {
-                int bite = read();
-                if(bite == -1)
-                    break;
+    public int read(byte b[], int off, int len) throws IOException {
+        int result = super.read(b, off, len);
 
-                b[off + readCount] = (byte) bite;
-            }
+        for(int i = off; i < result; i++) {
+            if(condition.evaluate((int) b[i]))
+                callback.execute(super.in);
         }
-        else {
-            readCount = super.read(b,off,len);
-        }
-
-        return readCount;
-    }
-
-    public boolean isFound() {
-        return lookingFor ==  (current & lookingFor);
-    }
-
-    public T getValue() {
-        return converter.transform(convertBuffer);
+        return result;
     }
 }
