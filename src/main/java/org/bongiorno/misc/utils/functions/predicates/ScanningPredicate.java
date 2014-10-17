@@ -34,7 +34,9 @@ public class ScanningPredicate implements Predicate<Integer> {
         if (read != -1) {
             shiftLeft(current, 8);
             current.or(BitSet.valueOf(new byte[]{read.byteValue()}));
-            current.clear(bitCount, current.size());
+            if (current.size() > bitCount) {
+                current.clear(bitCount, current.size());
+            }
 
             match = current.equals(lookingFor);
         }

@@ -1,6 +1,6 @@
 package org.bongiorno.misc;
 
-public interface Identifiable {
+public interface Identifiable<T> {
 
-    public Long getId();
+    public T getId();
 }

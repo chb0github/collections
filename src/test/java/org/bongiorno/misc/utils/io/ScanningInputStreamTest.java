@@ -54,7 +54,7 @@ public class ScanningInputStreamTest {
     }
 
     @Test
-    @Ignore("WIP")
+    @Ignore("Doesn't pass because of encoding issue, I think")
     public void testScanFile() throws Exception {
         File testFile = new File(this.getClass().getResource("/testscan.dat").getFile());
 

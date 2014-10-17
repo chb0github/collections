@@ -5,19 +5,20 @@ import org.bongiorno.misc.utils.Function;
 
 import javax.annotation.Nullable;
 
-public class IdentifiableToId implements Function<Identifiable, Long> {
+public class IdentifiableToId<T> implements Function<Identifiable<T>, T> {
 
-    private static IdentifiableToId INSTANCE = new IdentifiableToId();
+    private static IdentifiableToId<?> INSTANCE = new IdentifiableToId<>();
 
     private IdentifiableToId() {
     }
 
-    public static IdentifiableToId getInstance() {
+    public static IdentifiableToId<?> getInstance() {
         return INSTANCE;
     }
 
+
     @Override
-    public Long apply(@Nullable Identifiable input) {
+    public T apply(@Nullable Identifiable<T> input) {
         return input == null ? null : input.getId();
     }
 
