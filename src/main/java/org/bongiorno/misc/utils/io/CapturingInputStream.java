@@ -33,7 +33,7 @@ public class CapturingInputStream extends FilterInputStream {
         return numRead;
     }
 
-    public InputStream getCapturedInputStream() {
+    public InputStream getCapturedStream() {
         return new ByteArrayInputStream(captureStream.toByteArray());
     }
 }
