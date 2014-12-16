@@ -1,6 +1,5 @@
-package org.bongiorno.misc.utils;
+package org.bongiorno.misc.utils.functions;
 
-import org.bongiorno.misc.utils.functions.Function;
 
 import javax.annotation.Nullable;
 

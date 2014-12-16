@@ -1,6 +1,5 @@
 package org.bongiorno.misc.utils.functions;
 
-import org.bongiorno.misc.utils.ReversibleFunction;
 import org.springframework.security.crypto.codec.Hex;
 
 import javax.annotation.Nullable;
