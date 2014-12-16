@@ -24,6 +24,8 @@ public final class WSCollections {
     /**
      * Delimits with the system line separator. Handy for debugging
      * @param c your collection
+     * @return a system dependent newline delimited collection
+     * @param <T> the stuff in the collection
      */
     public static <T> Collection<T> delimitNewLine(Collection<T> c) {
         return new DelimitedCollection<T>(c, System.lineSeparator());
@@ -33,8 +35,8 @@ public final class WSCollections {
      * @param m the map to delegate to
      * @param postKeyDelim what you want to come after every key
      * @param postValueDelim what you want to come after every value
-     * @param <K>
-     * @param <V>
+     * @param <K> key
+     * @param <V> value
      * @return a map that behaves as 'm' except has a very nice toString()
      */
     public static <K, V> Map<K, V> delimitedMap(Map<K, V> m, CharSequence postKeyDelim, CharSequence postValueDelim) {
@@ -47,8 +49,8 @@ public final class WSCollections {
      * @param preKey what you want to come before every key
      * @param postKey what you want to come after every key
      * @param postValue what you want to come after every value
-     * @param <K>
-     * @param <V>
+     * @param <K> key
+     * @param <V> value
      * @return a map that behaves as 'm' except has a very nice toString()
      */
     public static <K, V> Map<K, V> delimitedMap(Map<K, V> m, CharSequence preKey, CharSequence postKey, CharSequence postValue) {
@@ -62,8 +64,8 @@ public final class WSCollections {
      * @param postKey what you want to come after every key
      * @param postValue what you want to come after every value
      * @param trim if, when output is complete, you want the last postValue to be trimmed off
-     * @param <K>
-     * @param <V>
+     * @param <K> key
+     * @param <V> value
      * @return a map that behaves as 'm' except has a very nice toString()
      */
     public static <K, V> Map<K, V> delimitedMap(Map<K, V> m, CharSequence preKey, CharSequence postKey, CharSequence postValue, boolean trim) {
@@ -81,11 +83,12 @@ public final class WSCollections {
      *
      * @param delegate The map to be wrapped
      * @param defaultValue Constant value to be returned from get when the sought key is not present
-     *
+     * @param <K> key
+     * @param <V> value
      * @return The wrapped map
      */
     public static <K,V> Map<K,V> defaultValueMap(Map<K,V> delegate, V defaultValue){
-        return new DefaultValueMap<K, V>(delegate, new ConstantFunction<Object, V>(defaultValue));
+        return new DefaultValueMap<>(delegate, new ConstantFunction<>(defaultValue));
     }
 
     /**
@@ -95,7 +98,8 @@ public final class WSCollections {
      *
      * @param delegate The map to be wrapped
      * @param defaultValueFunction Function to be called to find the default value when a key is not present in the map
-     *
+     * @param <K> key
+     * @param <V> value
      * @return the wrapped map
      */
     public static <K,V> Map<K,V> defaultValueMap(Map<K,V> delegate, Function<Object, V> defaultValueFunction){
@@ -110,6 +114,7 @@ public final class WSCollections {
      * @param function the function to apply to each of the elements fromCollection
      * @param <F> input to the function
      * @param <T> output to the function
+     * @param <C> the Collection type
      * @return a new Collection of the same type as fromCollection
      */
     public static <F, T, C extends Collection<T>> C transform(Collection<F> fromCollection,
@@ -146,15 +151,7 @@ public final class WSCollections {
         return toCollection;
     }
 
-    /**
-     * Find an element that matches the predicate.  The returned element will be the first matching element by iteration
-     * order.
-     *
-     * @param collection Items through which to search
-     * @param predicate Function for identifying matching elements
-     *
-     * @return First matching element
-     */
+
     public static <T> T findOne(Iterable<T> collection, Function<? super T, Boolean> predicate){
         T result = null;
         if(collection != null){
@@ -172,7 +169,7 @@ public final class WSCollections {
      * Return a new Collection returning all items in the specified Iterable that match predicate
      * @param collection Items through which to search
      * @param predicate Function for identifying matching elements
-     *
+     * @param <T> the stuff in the collection
      * @return All matching elements
      */
     public static <T> Collection<T> findAll(Iterable<T> collection, Function<? super T, Boolean> predicate){
