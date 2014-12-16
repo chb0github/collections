@@ -1,6 +1,5 @@
 package org.bongiorno.misc.utils;
 
-import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +15,7 @@ public class QuickMap<K,V> implements Map<K,V> {
     public QuickMap() {
     }
 
-    public QuickMap(@NotNull Map<K, V> delegate) {
+    public QuickMap(Map<K, V> delegate) {
         this.delegate = delegate;
     }
 

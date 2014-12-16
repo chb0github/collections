@@ -1,4 +1,4 @@
-package org.bongiorno.misc.utils;
+package org.bongiorno.misc.utils.functions;
 
 import javax.annotation.Nullable;
 

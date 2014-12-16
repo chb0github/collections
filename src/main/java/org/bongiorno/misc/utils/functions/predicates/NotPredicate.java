@@ -1,6 +1,6 @@
 package org.bongiorno.misc.utils.functions.predicates;
 
-import org.bongiorno.misc.utils.Function;
+import org.bongiorno.misc.utils.functions.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

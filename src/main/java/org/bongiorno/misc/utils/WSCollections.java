@@ -1,6 +1,7 @@
 package org.bongiorno.misc.utils;
 
 import org.bongiorno.misc.utils.functions.ConstantFunction;
+import org.bongiorno.misc.utils.functions.Function;
 import org.bongiorno.misc.utils.functions.predicates.NotPredicate;
 
 import java.util.*;
@@ -202,6 +203,7 @@ public final class WSCollections {
      *
      * @param collection Group to be purged
      * @param predicate Function to identify unwanted elements
+     * @param <T> the element that will be removed if predicate returns true.
      */
     public static <T> void removeIf(Iterable<T> collection, Function<? super T, Boolean> predicate){
         Iterator<T> i = collection.iterator();
@@ -225,6 +227,7 @@ public final class WSCollections {
     /**
      * Counts duplicate items, returning a map of the unique item to the number of times it appears.
      * @param list The items to be counted
+     * @param <T> the element that will be sorted in the result map by element and count.
      *
      * @return A map of item to number of appearances
      */
@@ -244,7 +247,7 @@ public final class WSCollections {
      * can't make Java treat "=>" as an equivalent for ",".
      *
      * @param pairs Keys and values, alternately
-     *
+     * @param <T> the element to make pairs from
      * @throws ArrayIndexOutOfBoundsException If an odd number of Objects are passed in
      */
     public static <T> Map<T,T> asMap(T... pairs) throws ArrayIndexOutOfBoundsException{

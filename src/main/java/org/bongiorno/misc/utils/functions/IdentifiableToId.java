@@ -1,7 +1,6 @@
 package org.bongiorno.misc.utils.functions;
 
 import org.bongiorno.misc.Identifiable;
-import org.bongiorno.misc.utils.Function;
 
 import javax.annotation.Nullable;
 

@@ -1,4 +1,4 @@
-package org.bongiorno.misc.utils;
+package org.bongiorno.misc.utils.functions;
 
 import org.apache.commons.collections4.Transformer;
 

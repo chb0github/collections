@@ -1,6 +1,5 @@
 package org.bongiorno.misc.utils.functions;
 
-import org.bongiorno.misc.utils.Function;
 import org.bongiorno.misc.utils.WSCollections;
 
 import java.beans.PropertyEditorSupport;

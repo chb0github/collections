@@ -25,14 +25,14 @@ public class WSCollectionsTest {
 
     @Test
     public void testDelimitedMap() throws Exception {
-        Map<Object,Object> m = delimitedMap(new LinkedHashMap<Object, Object>(), "#:", "$$");
+        Map<Object,Object> m = delimitedMap(new LinkedHashMap<>(), "#:", "$$");
         m.put("Christian", "Bongiorno");
         m.put("Snookie", "Bongiorno");
         m.put("Pookie", "Bongiorno");
         m.put("Rookie", "Bongiorno");
         assertEquals(m.toString(), "Christian#:Bongiorno$$Snookie#:Bongiorno$$Pookie#:Bongiorno$$Rookie#:Bongiorno$$");
 
-        m = delimitedMap(new LinkedHashMap<Object, Object>(), "!!", "#:", "$$");
+        m = delimitedMap(new LinkedHashMap<>(), "!!", "#:", "$$");
         m.put("Christian", "Bongiorno");
         m.put("Snookie", "Bongiorno");
         m.put("Pookie", "Bongiorno");

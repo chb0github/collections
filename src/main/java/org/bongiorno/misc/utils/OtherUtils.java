@@ -1,5 +1,6 @@
 package org.bongiorno.misc.utils;
 
+import org.bongiorno.misc.utils.functions.Function;
 import org.bongiorno.misc.utils.functions.predicates.IsNullPredicate;
 import org.bongiorno.misc.utils.functions.predicates.NotPredicate;
 import org.slf4j.Logger;

@@ -1,5 +1,8 @@
 package org.bongiorno.misc.utils;
 
+import org.bongiorno.misc.utils.functions.BytesToHex;
+import org.springframework.security.crypto.codec.Hex;
+
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -18,7 +21,6 @@ public class SecurityUtils {
      */
     public static String hashTo(String val, String strategy) throws UnsupportedOperationException {
         MessageDigest m = null;
-        Formatter f = new Formatter();
         try {
             m = MessageDigest.getInstance(strategy);
             m.reset();
@@ -27,10 +29,8 @@ public class SecurityUtils {
             throw new UnsupportedOperationException(e);
         }
 
-        for (byte b : m.digest())
-            f.format("%02x", b);
 
-        return f.toString();
+        return new String(Hex.encode(m.digest()));
     }
 
     /**

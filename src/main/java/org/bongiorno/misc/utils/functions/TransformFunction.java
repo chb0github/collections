@@ -1,7 +1,6 @@
 package org.bongiorno.misc.utils.functions;
 
 import org.bongiorno.misc.Transformable;
-import org.bongiorno.misc.utils.Function;
 
 import javax.annotation.Nullable;
 

@@ -1,7 +1,5 @@
 package org.bongiorno.misc.utils.functions;
 
-import org.bongiorno.misc.utils.Function;
-
 import javax.annotation.Nullable;
 
 public class CompositeFunction<F, T> implements Function<F, T> {

@@ -35,6 +35,7 @@ public abstract class FoldFunction<T> {
     /**
      * Folds two items into one.  If one of the items is null, the default implementation will return the other one.
      * Otherwise, foldNotNull is called.
+     * @return the results from combining the first with the second
      */
     public T fold(@Nullable T first, @Nullable T second){
         return first == null ? second : second == null ? first : foldNotNull(first, second);
@@ -42,6 +43,7 @@ public abstract class FoldFunction<T> {
 
     /**
      * Folds two non-null items into one.
+     * @return the results from combining the first with the second
      */
     protected T foldNotNull(@Nonnull T first, @Nonnull T second){
         return fold(Arrays.asList(first, second));
