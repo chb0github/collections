@@ -18,7 +18,7 @@ public class OtherUtils {
     /**
      * This utility method will compare equality on all private non-static fields.
      * Note: If the security manager is active then this method will throw exceptions.
-     * Sadly the only TRUE way to make sure this runs is to C&P it into your class. Best used on
+     * Sadly the only TRUE way to make sure this runs is to C and P it into your class. Best used on
      * classes with large fields that you don't want to have an ugly generated method for
      * <p>
      * caveat emptor

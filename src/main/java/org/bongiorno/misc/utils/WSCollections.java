@@ -80,6 +80,7 @@ public final class WSCollections {
      * @param pairs Keys and values, alternately
      * @param <T>   the element to make pairs from
      * @throws ArrayIndexOutOfBoundsException If an odd number of Objects are passed in
+     * @return a new Map instance based on your input.
      */
     public static <T> Map<T, T> asMap(T... pairs) throws ArrayIndexOutOfBoundsException {
         Map<T, T> retVal = new HashMap<T, T>();
