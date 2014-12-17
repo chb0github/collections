@@ -5,6 +5,7 @@
         <title>Core Webservice utilities</title>
     </properties>
     <body>
+        <release version="1.0.5" date="2013-12-17" description="version bump"/>
         <release version="1.0.1" date="2013-09-17" description="initial check in">
             <action>Added a new scanning input stream to efficiently find a byte pattern on a sliding window</action>
         </release>
