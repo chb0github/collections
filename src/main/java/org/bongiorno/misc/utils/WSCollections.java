@@ -1,10 +1,8 @@
 package org.bongiorno.misc.utils;
 
-import org.bongiorno.misc.utils.functions.ConstantFunction;
-import org.bongiorno.misc.utils.functions.Function;
-import org.bongiorno.misc.utils.functions.predicates.NotPredicate;
 
 import java.util.*;
+import java.util.function.Function;
 
 public final class WSCollections {
 
@@ -23,256 +21,92 @@ public final class WSCollections {
 
     /**
      * Delimits with the system line separator. Handy for debugging
-     * @param c your collection
-     * @return a system dependent newline delimited collection
+     *
+     * @param c   your collection
      * @param <T> the stuff in the collection
+     * @return a system dependent newline delimited collection
      */
     public static <T> Collection<T> delimitNewLine(Collection<T> c) {
         return new DelimitedCollection<T>(c, System.lineSeparator());
     }
+
     /**
-     *
-     * @param m the map to delegate to
-     * @param postKeyDelim what you want to come after every key
+     * @param m              the map to delegate to
+     * @param postKeyDelim   what you want to come after every key
      * @param postValueDelim what you want to come after every value
-     * @param <K> key
-     * @param <V> value
+     * @param <K>            key
+     * @param <V>            value
      * @return a map that behaves as 'm' except has a very nice toString()
      */
     public static <K, V> Map<K, V> delimitedMap(Map<K, V> m, CharSequence postKeyDelim, CharSequence postValueDelim) {
-        return new DelimitedMap<K, V>(m,postKeyDelim,postValueDelim);
+        return new DelimitedMap<K, V>(m, postKeyDelim, postValueDelim);
     }
 
     /**
-     *
-     * @param m the map to delegate to
-     * @param preKey what you want to come before every key
-     * @param postKey what you want to come after every key
+     * @param m         the map to delegate to
+     * @param preKey    what you want to come before every key
+     * @param postKey   what you want to come after every key
      * @param postValue what you want to come after every value
-     * @param <K> key
-     * @param <V> value
+     * @param <K>       key
+     * @param <V>       value
      * @return a map that behaves as 'm' except has a very nice toString()
      */
     public static <K, V> Map<K, V> delimitedMap(Map<K, V> m, CharSequence preKey, CharSequence postKey, CharSequence postValue) {
-        return new DelimitedMap<K, V>(m, preKey,postKey, postValue);
+        return new DelimitedMap<K, V>(m, preKey, postKey, postValue);
     }
 
     /**
-     *
-     * @param m the map to delegate to
-     * @param preKey what you want to come before every key
-     * @param postKey what you want to come after every key
+     * @param m         the map to delegate to
+     * @param preKey    what you want to come before every key
+     * @param postKey   what you want to come after every key
      * @param postValue what you want to come after every value
-     * @param trim if, when output is complete, you want the last postValue to be trimmed off
-     * @param <K> key
-     * @param <V> value
+     * @param trim      if, when output is complete, you want the last postValue to be trimmed off
+     * @param <K>       key
+     * @param <V>       value
      * @return a map that behaves as 'm' except has a very nice toString()
      */
     public static <K, V> Map<K, V> delimitedMap(Map<K, V> m, CharSequence preKey, CharSequence postKey, CharSequence postValue, boolean trim) {
-        return new DelimitedMap<K, V>(m, preKey,postKey, postValue, trim);
+        return new DelimitedMap<K, V>(m, preKey, postKey, postValue, trim);
     }
 
     public static <T> Set<T> exceptionOnDuplicateSet(Set<T> s) {
         return new ExceptionOnDuplicateSet<T>(s);
     }
 
-    /**
-     * Wraps the given map in a new map whose <code>get()</code> operation returns the given value instead of
-     * <code>null</code> when the key is not present in the map.  <code>get()</code> may still return <code>null</code>
-     * if a null value was explicitly added to the map.
-     *
-     * @param delegate The map to be wrapped
-     * @param defaultValue Constant value to be returned from get when the sought key is not present
-     * @param <K> key
-     * @param <V> value
-     * @return The wrapped map
-     */
-    public static <K,V> Map<K,V> defaultValueMap(Map<K,V> delegate, V defaultValue){
-        return new DefaultValueMap<>(delegate, new ConstantFunction<>(defaultValue));
-    }
 
     /**
-     * Wraps the given map in a new map whose <code>get()</code> operation returns the result of calling the given
-     * Function on the key instead of <code>null</code> when the key is not present in the map.  <code>get()</code> may
-     * still return <code>null</code> if a null value was explicitly added to the map.
-     *
-     * @param delegate The map to be wrapped
-     * @param defaultValueFunction Function to be called to find the default value when a key is not present in the map
-     * @param <K> key
-     * @param <V> value
-     * @return the wrapped map
-     */
-    public static <K,V> Map<K,V> defaultValueMap(Map<K,V> delegate, Function<Object, V> defaultValueFunction){
-        return new DefaultValueMap<K, V>(delegate, defaultValueFunction);
-    }
-
-    /**
-     * transforms fromCollection to an output collection after applying 'function'. Attempts
-     * to use the same Collection type as the one passed in
-     * @param fromCollection duh
-     * @param toCollection duh
-     * @param function the function to apply to each of the elements fromCollection
-     * @param <F> input to the function
-     * @param <T> output to the function
-     * @param <C> the Collection type
-     * @return a new Collection of the same type as fromCollection
-     */
-    public static <F, T, C extends Collection<T>> C transform(Collection<F> fromCollection,
-                                                 C toCollection,
-                                                 Function<? super F, T> function) {
-        for (F f : fromCollection) {
-            toCollection.add(function.apply(f));
-        }
-        return toCollection;
-
-    }
-
-    public static <F, T> Collection<T> transform(Collection<F> fromCollection, Function<? super F, T> function) {
-        // because this returns a collection, we can do as we wish. I am starting to see the wisdom of Guava in this regard
-        return transform(fromCollection,new HashSet<T>(),function);
-
-    }
-
-    public static <F, T> Set<T> transform(Set<F> fromSet, Function<? super F, T> function) {
-        return transform(fromSet,new HashSet<T>(),function);
-    }
-
-    public static <F, T> List<T> transform(List<F> fromList, Function<? super F, T> function) {
-        return transform(fromList,new LinkedList<T>(),function);
-    }
-
-    public static <F, T> Collection<T> transformMulti(Collection<F> fromCollection, Function<? super F, ? extends Collection<T>> function){
-        Collection<T> toCollection = new LinkedList<T>();
-        if(fromCollection != null){
-            for (F element : fromCollection) {
-                toCollection.addAll(function.apply(element));
-            }
-        }
-        return toCollection;
-    }
-
-
-    public static <T> T findOne(Iterable<T> collection, Function<? super T, Boolean> predicate){
-        T result = null;
-        if(collection != null){
-            for (T item : collection) {
-                if(predicate.apply(item)){
-                    result = item;
-                    break;
-                }
-            }
-        }
-        return result;
-    }
-
-    /**
-     * Return a new Collection returning all items in the specified Iterable that match predicate
-     * @param collection Items through which to search
-     * @param predicate Function for identifying matching elements
-     * @param <T> the stuff in the collection
-     * @return All matching elements
-     */
-    public static <T> Collection<T> findAll(Iterable<T> collection, Function<? super T, Boolean> predicate){
-        return findAll(collection, new ArrayList<T>(), predicate);
-    }
-
-    /**
-     * Return a new Collection returning all items in the specified Iterable that match predicate
-     * @param fromCollection Items through which to search
-     * @param toCollection destination collection
-     * @param predicate Function for identifying matching elements
-     *
-     * @return All matching elements
-     */
-    public static <T, C extends Collection<T>> C findAll(Iterable<T> fromCollection, C toCollection, Function<? super T, Boolean> predicate){
-        if(fromCollection != null){
-            for(T item : fromCollection){
-                if(predicate.apply(item)){
-                    toCollection.add(item);
-                }
-            }
-        }
-        return toCollection;
-    }
-
-    /**
-     * Remove from the specified Iterable all elements that match the specified predicate
-     *
-     * @param collection Group to be purged
-     * @param predicate Function to identify unwanted elements
-     * @param <T> the element that will be removed if predicate returns true.
-     */
-    public static <T> void removeIf(Iterable<T> collection, Function<? super T, Boolean> predicate){
-        Iterator<T> i = collection.iterator();
-        while(i.hasNext()){
-            if(predicate.apply(i.next())){
-                i.remove();
-            }
-        }
-    }
-
-    /**
-     * Remove from the specified Iterable all elements that do not match the specified predicate
-     *
-     * @param collection Group to be purged
-     * @param predicate Function to identify elements to be kept
-     */
-    public static <T> void removeIfNot(Iterable<T> collection, Function<? super T, Boolean> predicate){
-        removeIf(collection, new NotPredicate<T>(predicate));
-    }
-
-    /**
-     * Counts duplicate items, returning a map of the unique item to the number of times it appears.
-     * @param list The items to be counted
-     * @param <T> the element that will be sorted in the result map by element and count.
-     *
-     * @return A map of item to number of appearances
-     */
-    public static <T> Map<T, Integer> countDuplicates(Iterable<T> list){
-        Map<T, Integer> result = defaultValueMap(new HashMap<T, Integer>(), 0);
-        if(list != null){
-            for(T element : list){
-                Integer count = result.get(element);
-                result.put(element, count + 1);
-            }
-        }
-        return result;
-    }
-
-    /**
-     * Map equivalent of Arrays.asList.  This works just like the way you would declare a hash (map) in Perl, except I
-     * can't make Java treat "=>" as an equivalent for ",".
+     * Map equivalent of Arrays.asList.  This works just like the way you would declare a hash (map) in Perl
      *
      * @param pairs Keys and values, alternately
-     * @param <T> the element to make pairs from
+     * @param <T>   the element to make pairs from
      * @throws ArrayIndexOutOfBoundsException If an odd number of Objects are passed in
      */
-    public static <T> Map<T,T> asMap(T... pairs) throws ArrayIndexOutOfBoundsException{
-        Map<T,T> retVal = new HashMap<T, T>();
+    public static <T> Map<T, T> asMap(T... pairs) throws ArrayIndexOutOfBoundsException {
+        Map<T, T> retVal = new HashMap<T, T>();
         int i = 0;
-        while(i < pairs.length){
+        while (i < pairs.length) {
             retVal.put(pairs[i++], pairs[i++]);
         }
         return retVal;
     }
 
-    public static <K, V> Map<K, V> putInMap(Iterable<K> things, Function<? super K, V> valueFunction){
-        return putInMap(things, new HashMap<K, V>(), valueFunction);
+    public static <K, V> Map<K, V> putInMap(Iterable<K> things, Function<? super K, V> valueFunction) {
+        return putInMap(things, new HashMap<K,V>(), valueFunction);
     }
 
-    public static <K, V> Map<K, V> putInMap(Iterable<K> things, V value){
-        return putInMap(things, new HashMap<K, V>(), value);
+    public static <K, V> Map<K, V> putInMap(Iterable<K> things, V value) {
+        return putInMap(things, new HashMap<>(), value);
     }
 
-    public static <C extends Map<K, V>, K, V> C putInMap(Iterable<K> things, C destinationMap, Function<? super K, V> valueFunction){
+    public static <C extends Map<K, V>, K, V> C putInMap(Iterable<K> things, C destinationMap, Function<? super K, V> valueFunction) {
         for (K thing : things) {
             destinationMap.put(thing, valueFunction.apply(thing));
         }
         return destinationMap;
     }
 
-    public static <C extends Map<K,V>, K, V> C putInMap(Iterable<K> things, C destinationMap, V value){
-        return putInMap(things, destinationMap, new ConstantFunction<K, V>(value));
+    public static <C extends Map<K, V>, K, V> C putInMap(Iterable<K> things, C destinationMap, V value) {
+        return putInMap(things, destinationMap, (Function<K, V>) k -> value);
     }
 
     /**
@@ -285,6 +119,7 @@ public final class WSCollections {
 
         /**
          * Default delimiter is used: ','
+         *
          * @param delegate the collection to delegate calls to
          */
         private DelimitedCollection(Collection<T> delegate) {
@@ -303,7 +138,7 @@ public final class WSCollections {
             StringBuilder b = new StringBuilder();
             for (T t : delegate)
                 b.append(t).append(delimiter);
-            b.setLength(Math.max(0,b.length() - delimiter.length())); // remove the extra delimiter
+            b.setLength(Math.max(0, b.length() - delimiter.length())); // remove the extra delimiter
             return b.toString();
         }
     }
@@ -406,7 +241,7 @@ public final class WSCollections {
         }
     }
 
-    private static class ExceptionOnDuplicateKeyMap<K, V> extends QuickMap<K,V>{
+    private static class ExceptionOnDuplicateKeyMap<K, V> extends QuickMap<K, V> {
         private ExceptionOnDuplicateKeyMap(Map<K, V> delegate) {
             super(delegate);
         }
@@ -444,13 +279,13 @@ public final class WSCollections {
         }
     }
 
-    private static class DelimitedMap<K, V> extends QuickMap<K,V> {
+    private static class DelimitedMap<K, V> extends QuickMap<K, V> {
         private CharSequence preKeyDelim = "";
         private CharSequence postKeyDelim = "";
         private CharSequence postValueDelim = "";
         private boolean trim = false;
 
-        private DelimitedMap(Map<K, V> delegate, CharSequence preKeyDelim, CharSequence postKeyDelim, CharSequence postValueDelim,boolean trim) {
+        private DelimitedMap(Map<K, V> delegate, CharSequence preKeyDelim, CharSequence postKeyDelim, CharSequence postValueDelim, boolean trim) {
             super(delegate);
             this.delegate = delegate;
             this.preKeyDelim = preKeyDelim;
@@ -481,15 +316,15 @@ public final class WSCollections {
         @Override
         public String toString() {
             StringBuilder sb = new StringBuilder();
-            for (Map.Entry<K,V> item : entrySet()) {
+            for (Map.Entry<K, V> item : entrySet()) {
                 sb.append(preKeyDelim);
                 sb.append(item.getKey());
                 sb.append(postKeyDelim);
                 sb.append(item.getValue());
                 sb.append(postValueDelim);
             }
-            if(trim)
-                sb.setLength(Math.max(0,sb.length() - postValueDelim.length())); // remove the extra delimiter
+            if (trim)
+                sb.setLength(Math.max(0, sb.length() - postValueDelim.length())); // remove the extra delimiter
 
             return sb.toString();
         }
@@ -528,21 +363,4 @@ public final class WSCollections {
         }
     }
 
-    private static class DefaultValueMap<K,V> extends QuickMap<K,V>{
-        private Function<Object,V> defaultFunction;
-
-        private DefaultValueMap(Map<K, V> delegate, Function<Object, V> defaultFunction) {
-            super(delegate);
-            this.defaultFunction = defaultFunction;
-        }
-
-        @Override
-        public V get(Object key) {
-            V retVal = delegate.get(key);
-            if( retVal == null && !containsKey(key)){
-                retVal = defaultFunction.apply(key);
-            }
-            return retVal;
-        }
-    }
 }

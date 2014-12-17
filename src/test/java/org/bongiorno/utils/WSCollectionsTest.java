@@ -25,7 +25,7 @@ public class WSCollectionsTest {
 
     @Test
     public void testDelimitedMap() throws Exception {
-        Map<Object,Object> m = delimitedMap(new LinkedHashMap<>(), "#:", "$$");
+        Map<Object, Object> m = delimitedMap(new LinkedHashMap<>(), "#:", "$$");
         m.put("Christian", "Bongiorno");
         m.put("Snookie", "Bongiorno");
         m.put("Pookie", "Bongiorno");
@@ -40,31 +40,21 @@ public class WSCollectionsTest {
         assertEquals(m.toString(), "!!Christian#:Bongiorno$$!!Snookie#:Bongiorno$$!!Pookie#:Bongiorno$$!!Rookie#:Bongiorno$$");
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testOnDupMap() {
         Map<String, Void> test = exceptionOnDuplicateMap(new HashMap<String, Void>());
         test.put("Christian", null);
         test.put("George", null);
-        try {
-            test.put("Christian", null);
-            fail();
-        } catch (IllegalArgumentException e) {
-            // better throw an exception
-        }
+        test.put("Christian", null);
 
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testOnDubSortedMap() {
         Map<String, Void> test = exceptionOnDuplicateMap(new TreeMap<String, Void>());
         test.put("Christian", null);
         test.put("George", null);
-        try {
-            test.put("Christian", null);
-            fail();
-        } catch (IllegalArgumentException e) {
-            // better throw an exception
-        }
+        test.put("Christian", null);
     }
 
     @Test
@@ -81,8 +71,7 @@ public class WSCollectionsTest {
         try {
             test.addAll(Arrays.asList("George", "Christian"));
             fail();
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             // expected
         }
     }

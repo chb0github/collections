@@ -1,8 +1,5 @@
 package org.bongiorno.misc.utils;
 
-import org.bongiorno.misc.utils.functions.Function;
-import org.bongiorno.misc.utils.functions.predicates.IsNullPredicate;
-import org.bongiorno.misc.utils.functions.predicates.NotPredicate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,9 +7,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.LinkedList;
+import java.util.*;
 
 public class OtherUtils {
 
@@ -25,7 +20,7 @@ public class OtherUtils {
      * Note: If the security manager is active then this method will throw exceptions.
      * Sadly the only TRUE way to make sure this runs is to C&P it into your class. Best used on
      * classes with large fields that you don't want to have an ugly generated method for
-     * <p/>
+     * <p>
      * caveat emptor
      *
      * @param a 'this' usually
@@ -77,8 +72,6 @@ public class OtherUtils {
     }
 
 
-
-
     /**
      * Get a set of all the fields in an object that have not been initialized.  Useful when testing transformers, to
      * make sure you're not missing anything (and let you know what you are missing).
@@ -100,20 +93,27 @@ public class OtherUtils {
         }
         return result;
     }
+     public static String hexFormat(byte[] data) {
+         Formatter f = new Formatter();
 
+         for (byte b : data)
+             f.format("%02x", b);
+
+         return f.toString();
+     }
     public static boolean zeroOrAllNull(Object... things) {
         return zeroOrAllNull(Arrays.asList(things));
     }
 
     public static boolean zeroOrAllNull(Collection<?> things) {
-        return things == null
-                || !things.contains(null)
-                || WSCollections.findOne(things, not(IsNullPredicate.getInstance())) == null;
+        boolean result = things == null;
+        if (!result) {
+            long count = things.stream().filter(Objects::nonNull).count();
+            result = count == 0 || count == things.size();
+        }
+        return result;
     }
 
-    public static <T> Function<T, Boolean> not(Function<T, Boolean> positive) {
-        return new NotPredicate<>(positive);
-    }
 
     public static String getMyHostname() {
         String hostName = null;

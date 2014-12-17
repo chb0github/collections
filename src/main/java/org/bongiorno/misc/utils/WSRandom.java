@@ -1,11 +1,5 @@
 package org.bongiorno.misc.utils;
 
-
-
-
-import org.springframework.security.crypto.codec.Hex;
-
-import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.*;
 
@@ -32,7 +26,7 @@ public class WSRandom {
     private static String prvtHexString(Random rng, int byteCount) {
         byte[] bytes = new byte[byteCount];
         rng.nextBytes(bytes);
-        return new String(Hex.encode(bytes));
+        return OtherUtils.hexFormat(bytes);
     }
 
     public static String mac() {
