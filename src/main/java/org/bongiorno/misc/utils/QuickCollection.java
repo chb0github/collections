@@ -1,5 +1,7 @@
 package org.bongiorno.misc.utils;
 
+import org.bongiorno.misc.collections.ImprovedCollection;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -19,7 +21,7 @@ import java.util.LinkedList;
  *         and attempt to iterate and add to them.   Beware of CXF!
  */
 
-public class QuickCollection<T> implements Collection<T> {
+public class QuickCollection<T> implements ImprovedCollection<T> {
 
     protected Collection<T> delegate;
 
