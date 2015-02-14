@@ -1,5 +1,6 @@
 package org.bongiorno.misc.utils;
 
+import org.bongiorno.misc.collections.WSCollections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

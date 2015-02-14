@@ -1,6 +1,4 @@
-package org.bongiorno.misc.utils;
-
-import org.bongiorno.misc.collections.ImprovedCollection;
+package org.bongiorno.misc.collections;
 
 import java.util.Collection;
 import java.util.Iterator;

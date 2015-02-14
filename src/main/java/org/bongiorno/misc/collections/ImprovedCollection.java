@@ -1,7 +1,5 @@
 package org.bongiorno.misc.collections;
 
-import org.bongiorno.misc.utils.QuickCollection;
-
 import java.util.Collection;
 import java.util.Map;
 import java.util.function.BinaryOperator;

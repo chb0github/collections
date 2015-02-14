@@ -1,7 +1,5 @@
 package org.bongiorno.misc.collections;
 
-import org.bongiorno.misc.utils.QuickCollection;
-
 import java.util.*;
 import java.util.function.Function;
 

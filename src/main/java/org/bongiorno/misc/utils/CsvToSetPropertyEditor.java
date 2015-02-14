@@ -2,6 +2,7 @@ package org.bongiorno.misc.utils;
 
 
 import org.bongiorno.misc.collections.ImprovedSet;
+import org.bongiorno.misc.collections.WSCollections;
 
 import java.beans.PropertyEditorSupport;
 import java.util.Collection;

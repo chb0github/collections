@@ -1,4 +1,4 @@
-package org.bongiorno.misc.utils;
+package org.bongiorno.misc.collections;
 
 import java.util.Collection;
 import java.util.HashMap;

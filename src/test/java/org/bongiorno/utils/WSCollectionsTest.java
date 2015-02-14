@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.util.*;
 
 import static junit.framework.Assert.assertEquals;
-import static org.bongiorno.misc.utils.WSCollections.*;
+import static org.bongiorno.misc.collections.WSCollections.*;
 import static org.junit.Assert.fail;
 
 

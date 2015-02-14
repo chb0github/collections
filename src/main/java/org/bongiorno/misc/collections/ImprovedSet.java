@@ -1,15 +1,9 @@
 package org.bongiorno.misc.collections;
 
-import org.bongiorno.misc.utils.QuickCollection;
-
 import java.util.*;
 import java.util.function.Function;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toCollection;
-import static java.util.stream.Collectors.toSet;
 
 /**
  * @author chribong
