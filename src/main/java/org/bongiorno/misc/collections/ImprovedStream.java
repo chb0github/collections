@@ -4,6 +4,8 @@ import java.util.*;
 import java.util.function.*;
 import java.util.stream.*;
 
+import static java.util.stream.Collectors.toCollection;
+
 /**
  * @author chribong
  */
@@ -103,8 +105,16 @@ public class ImprovedStream<T> implements Stream<T>{
     }
 
     @Override
-    public <R> Stream<R> flatMap(Function<? super T, ? extends Stream<? extends R>> mapper) {
-        return delegate.flatMap(mapper);
+    public <R> ImprovedStream<R> flatMap(Function<? super T, ? extends Stream<? extends R>> mapper) {
+        return new ImprovedStream<>(delegate.flatMap(mapper));
+    }
+
+    public <K> Map<K, ImprovedList<T>> groupingBy(Function<? super T, ? extends K> classifier) {
+        return delegate.collect(Collectors.groupingBy(classifier,toCollection(ImprovedList::new)));
+    }
+
+    public ImprovedList<T> collect() {
+        return delegate.collect(toCollection(ImprovedList::new));
     }
 
     @Override

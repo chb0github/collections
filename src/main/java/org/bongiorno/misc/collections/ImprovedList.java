@@ -2,6 +2,7 @@ package org.bongiorno.misc.collections;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import static java.util.stream.Collectors.toCollection;
 
@@ -29,6 +30,7 @@ public class ImprovedList<T> extends QuickCollection<T> implements List<T>{
     public <O> ImprovedList<O> transform(Function<? super T, ? extends O> f) {
         return this.parallelStream().map(f).collect(toCollection(ImprovedList::new));
     }
+
 
     @Override
     public void add(int index, T element) {
@@ -76,7 +78,11 @@ public class ImprovedList<T> extends QuickCollection<T> implements List<T>{
     }
 
     @Override
-    public List<T> subList(int fromIndex, int toIndex) {
-        return ((List<T>)super.delegate).subList(fromIndex,toIndex);
+    public ImprovedList<T> subList(int fromIndex, int toIndex) {
+        return new ImprovedList<> ((List<T>)super.delegate).subList(fromIndex,toIndex);
+    }
+
+    public ImprovedList<T> subList(int fromIndex) {
+        return new ImprovedList<> (((List<T>)super.delegate).subList(fromIndex,this.size()));
     }
 }

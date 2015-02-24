@@ -1,8 +1,6 @@
 package org.bongiorno.misc.utils;
 
 import org.bongiorno.misc.collections.WSCollections;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -12,7 +10,6 @@ import java.util.*;
 
 public class OtherUtils {
 
-    private static final Logger log = LoggerFactory.getLogger(OtherUtils.class);
 
     private static final byte[] PNG_SIGNATURE = new byte[]{-119, 80, 78, 71, 13, 10, 26, 10};
 
@@ -121,7 +118,8 @@ public class OtherUtils {
         try {
             hostName = InetAddress.getLocalHost().getHostName();
         } catch (UnknownHostException e) {
-            log.error("Unknown *local* host?  Really?", e);
+            System.err.println("Unknown *local* host?  Really?");
+            e.printStackTrace(System.err);
         }
         return hostName;
     }

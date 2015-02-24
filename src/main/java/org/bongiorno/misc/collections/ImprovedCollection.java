@@ -7,6 +7,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toCollection;
 
@@ -22,6 +23,14 @@ public interface ImprovedCollection<T> extends Collection<T> {
 
     public default <R> ImprovedStream<R> map(Function<? super T, ? extends R> mapper) {
         return ImprovedStream.improve(this.parallelStream().map(mapper));
+    }
+
+    public default <R> ImprovedStream<R> flatMap(Function<? super T, ? extends Stream<? extends R>> mapper) {
+        return new ImprovedStream<>(this.parallelStream().flatMap(mapper));
+    }
+
+    public static <T> ImprovedCollection<T> of(Collection<T> sadCollection) {
+        return new QuickCollection<>(sadCollection);
     }
 
     public static <T> ImprovedCollection<T> improve(Collection<T> sadCollection) {
@@ -44,6 +53,8 @@ public interface ImprovedCollection<T> extends Collection<T> {
     public default ImprovedStream<T> filter(Predicate<T> p) {
         return new ImprovedStream<>( this.stream().filter(p));
     }
+
+
 
     public default boolean anyMatch(Predicate<? super T> predicate) {
         return this.stream().anyMatch(predicate);
