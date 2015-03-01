@@ -1,5 +1,6 @@
 package org.bongiorno.misc.collections;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
 import java.util.function.BinaryOperator;
@@ -14,7 +15,7 @@ import static java.util.stream.Collectors.toCollection;
 /**
  * @author chribong
  */
-public interface ImprovedCollection<T> extends Collection<T> {
+public interface ImprovedCollection<T> extends Collection<T>, Serializable {
 
     public default <K> Map<K, ImprovedList<T>> groupingBy(Function<? super T, ? extends K> classifier) {
 
