@@ -23,6 +23,11 @@ public class ImprovedList<T> extends QuickCollection<T> implements List<T>{
         return new ImprovedList<>(inferiorList);
     }
 
+    public static <T> ImprovedList<T> of(List<T> inferiorList) {
+        return new ImprovedList<>(inferiorList);
+    }
+
+
     @SafeVarargs
     public static <T> ImprovedList<T> of(T ... stuff) {
         return new ImprovedList<>(new ArrayList<>(Arrays.asList(stuff)));
