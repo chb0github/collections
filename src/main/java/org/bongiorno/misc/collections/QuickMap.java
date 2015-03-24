@@ -63,18 +63,18 @@ public class QuickMap<K,V> implements Map<K,V> {
     }
 
     @Override
-    public Set<K> keySet() {
-        return delegate.keySet();
+    public ImprovedSet<K> keySet() {
+        return ImprovedSet.of(delegate.keySet());
     }
 
     @Override
-    public Collection<V> values() {
-        return delegate.values();
+    public ImprovedCollection<V> values() {
+        return ImprovedCollection.of(delegate.values());
     }
 
     @Override
-    public Set<Entry<K, V>> entrySet() {
-        return delegate.entrySet();
+    public ImprovedSet<Entry<K, V>> entrySet() {
+        return ImprovedSet.of(delegate.entrySet());
     }
 
     @Override
