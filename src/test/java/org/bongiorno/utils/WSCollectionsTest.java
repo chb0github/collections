@@ -1,10 +1,19 @@
 package org.bongiorno.utils;
 
+import com.sun.org.apache.bcel.internal.util.ByteSequence;
+import org.bongiorno.misc.collections.SuperclassSearchingLazyMap;
+import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.Closeable;
+import java.io.DataInput;
+import java.io.FilterInputStream;
+import java.io.PipedInputStream;
 import java.util.*;
+import java.util.zip.GZIPInputStream;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNull;
 import static org.bongiorno.misc.collections.WSCollections.*;
 import static org.junit.Assert.fail;
 
@@ -74,5 +83,21 @@ public class WSCollectionsTest {
         } catch (IllegalArgumentException e) {
             // expected
         }
+    }
+
+    @Test
+    public void testSuperclassSearchingLazyMap() throws Exception {
+        Map<Class<?>, String> map = new SuperclassSearchingLazyMap<>();
+        map.put(AutoCloseable.class, "AutoCloseable");
+        map.put(Closeable.class, "Closeable");
+        map.put(DataInput.class, "DataInput");
+        map.put(FilterInputStream.class, "FilterInputStream");
+
+        assertEquals("AutoCloseable", map.get(AutoCloseable.class));
+        assertEquals("DataInput", map.get(ByteSequence.class));
+        assertEquals("FilterInputStream", map.get(GZIPInputStream.class));
+        assertEquals("Closeable", map.get(PipedInputStream.class));
+        assertNull(map.get(Set.class));
+        assertNull(map.get(null));
     }
 }
