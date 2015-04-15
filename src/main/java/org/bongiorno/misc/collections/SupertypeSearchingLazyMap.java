@@ -3,7 +3,7 @@ package org.bongiorno.misc.collections;
 import java.util.Map;
 import java.util.function.Function;
 
-public class SuperclassSearchingLazyMap<V> extends QuickMap<Class<?>, V> {
+public class SupertypeSearchingLazyMap<V> extends QuickMap<Class<?>, V> {
 
     private Function<Class<?>, V> SEARCH_FUNCTION = clazz -> {
         V result = null;
@@ -20,10 +20,10 @@ public class SuperclassSearchingLazyMap<V> extends QuickMap<Class<?>, V> {
         return result;
     };
 
-    public SuperclassSearchingLazyMap() {
+    public SupertypeSearchingLazyMap() {
     }
 
-    public SuperclassSearchingLazyMap(Map<Class<?>, V> delegate) {
+    public SupertypeSearchingLazyMap(Map<Class<?>, V> delegate) {
         super(delegate);
     }
 
