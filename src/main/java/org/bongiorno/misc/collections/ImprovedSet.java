@@ -2,6 +2,9 @@ package org.bongiorno.misc.collections;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toCollection;
 
@@ -34,4 +37,18 @@ public class ImprovedSet<T> extends QuickCollection<T> implements Set<T> {
         return this.parallelStream().map(f).collect(toCollection(ImprovedSet::new));
     }
 
+    public ImprovedSetStream<T> filter(Predicate<T> p) {
+        return new ImprovedSetStream<>( super.filter(p));
+    }
+
+
+    public static class ImprovedSetStream<T> extends ImprovedStream<T> {
+        public ImprovedSetStream(ImprovedStream<T> delegate) {
+            super(delegate);
+        }
+
+        public ImprovedSet<T> collect() {
+            return delegate.collect(Collectors.toCollection(ImprovedSet::new));
+        }
+    }
 }

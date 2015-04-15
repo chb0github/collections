@@ -11,7 +11,7 @@ import static java.util.stream.Collectors.toCollection;
  */
 public class ImprovedStream<T> implements Stream<T>{
 
-    private Stream<T> delegate;
+    protected Stream<T> delegate;
 
     public ImprovedStream(Stream<T> delegate) {
         this.delegate = delegate;
@@ -117,9 +117,6 @@ public class ImprovedStream<T> implements Stream<T>{
         return delegate.collect(Collectors.groupingBy(classifier,toCollection(ImprovedList::new)));
     }
 
-    public ImprovedList<T> collect() {
-        return delegate.collect(toCollection(ImprovedList::new));
-    }
 
     @Override
     public DoubleStream flatMapToDouble(Function<? super T, ? extends DoubleStream> mapper) {
