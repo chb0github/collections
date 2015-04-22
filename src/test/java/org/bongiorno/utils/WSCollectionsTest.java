@@ -1,7 +1,7 @@
 package org.bongiorno.utils;
 
 import com.sun.org.apache.bcel.internal.util.ByteSequence;
-import org.bongiorno.misc.collections.Foo;
+import org.bongiorno.misc.collections.SuperTypeSearchingLazyMap;
 import org.junit.Test;
 
 import java.io.Closeable;
@@ -86,7 +86,7 @@ public class WSCollectionsTest {
 
     @Test
     public void testSupertypeSearchingLazyMap() throws Exception {
-        Map<Class<?>, String> map = new Foo<>();
+        Map<Class<?>, String> map = new SuperTypeSearchingLazyMap<>();
         map.put(AutoCloseable.class, "AutoCloseable");
         map.put(Closeable.class, "Closeable");
         map.put(DataInput.class, "DataInput");
