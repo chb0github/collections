@@ -93,6 +93,18 @@
             </resource>
         </resources>
         <plugins>
+            <!--<plugin>-->
+                <!--<groupId>com.soebes.maven.plugins</groupId>-->
+                <!--<artifactId>maven-echo-plugin</artifactId>-->
+                <!--<version>0.1</version>-->
+
+                <!--<configuration>-->
+                    <!--<echos>-->
+                        <!--<echo>now go to https://oss.sonatype.org , staging repositories, then close and release</echo>-->
+                    <!--</echos>-->
+
+                <!--</configuration>-->
+            <!--</plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
