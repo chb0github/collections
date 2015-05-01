@@ -23,11 +23,11 @@ public interface ImprovedCollection<T> extends Collection<T>, Serializable {
     }
 
     public default <R> ImprovedStream<R> map(Function<? super T, ? extends R> mapper) {
-        return ImprovedStream.improve(this.parallelStream().map(mapper));
+        return ImprovedStream.improve(this.stream().map(mapper));
     }
 
     public default <R> ImprovedStream<R> flatMap(Function<? super T, ? extends Stream<? extends R>> mapper) {
-        return new ImprovedStream<>(this.parallelStream().flatMap(mapper));
+        return new ImprovedStream<>(this.stream().flatMap(mapper));
     }
 
     public static <T> ImprovedCollection<T> of(Collection<T> sadCollection) {

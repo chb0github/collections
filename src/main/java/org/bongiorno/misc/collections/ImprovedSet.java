@@ -34,7 +34,7 @@ public class ImprovedSet<T> extends QuickCollection<T> implements Set<T> {
         return new ImprovedSet<T>(new HashSet<>(Arrays.asList(stuff)));
     }
     public <O> ImprovedSet<O> transform(Function<? super T, ? extends O> f) {
-        return this.parallelStream().map(f).collect(toCollection(ImprovedSet::new));
+        return this.stream().map(f).collect(toCollection(ImprovedSet::new));
     }
 
     public ImprovedSetStream<T> filter(Predicate<T> p) {

@@ -33,7 +33,7 @@ public class ImprovedList<T> extends QuickCollection<T> implements List<T>{
         return new ImprovedList<>(new ArrayList<>(Arrays.asList(stuff)));
     }
     public <O> ImprovedList<O> transform(Function<? super T, ? extends O> f) {
-        return this.parallelStream().map(f).collect(toCollection(ImprovedList::new));
+        return this.stream().map(f).collect(toCollection(ImprovedList::new));
     }
 
 
