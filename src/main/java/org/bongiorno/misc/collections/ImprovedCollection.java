@@ -19,7 +19,7 @@ public interface ImprovedCollection<T> extends Collection<T>, Serializable {
 
     public default <K> Map<K, ImprovedList<T>> groupingBy(Function<? super T, ? extends K> classifier) {
 
-        return this.stream().collect(Collectors.groupingBy(classifier,toCollection(ImprovedList::new)));
+        return this.stream().collect(Collectors.groupingBy(classifier, toCollection(ImprovedList::new)));
     }
 
     public default <R> ImprovedStream<R> map(Function<? super T, ? extends R> mapper) {
@@ -38,11 +38,11 @@ public interface ImprovedCollection<T> extends Collection<T>, Serializable {
         return new QuickCollection<>(sadCollection);
     }
 
-    public default <K> ImprovedMap<K,T> toMap(Function<? super T, ? extends K> classifier) {
+    public default <K> ImprovedMap<K, T> toMap(Function<? super T, ? extends K> classifier) {
         return this.stream().collect(Collectors.toMap(classifier, Function.identity(), noDupKeys(), ImprovedMap::new));
     }
 
-    public default <K,U> ImprovedMap<K,U> toMap(Function<? super T, ? extends K> fOfK, Function<? super T, ? extends U> fOfV) {
+    public default <K, U> ImprovedMap<K, U> toMap(Function<? super T, ? extends K> fOfK, Function<? super T, ? extends U> fOfV) {
         return this.stream().collect(Collectors.toMap(fOfK, fOfV, noDupKeys(), ImprovedMap::new));
     }
 
@@ -52,7 +52,7 @@ public interface ImprovedCollection<T> extends Collection<T>, Serializable {
     }
 
     public default ImprovedStream<T> filter(Predicate<T> p) {
-        return new ImprovedStream<>( this.stream().filter(p));
+        return new ImprovedStream<>(this.stream().filter(p));
     }
 
 
@@ -62,7 +62,9 @@ public interface ImprovedCollection<T> extends Collection<T>, Serializable {
     }
 
     public static <T> BinaryOperator<T> noDupKeys() {
-        return (u,v) -> { throw new IllegalStateException(String.format("Duplicate key %s", u)); };
+        return (u, v) -> {
+            throw new IllegalStateException(String.format("Duplicate key %s", u));
+        };
     }
 
 }

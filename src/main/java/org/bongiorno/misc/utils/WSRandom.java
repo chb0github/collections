@@ -16,9 +16,6 @@ public class WSRandom {
         return hexString(32);
     }
 
-    public static String email(){
-        return UUID.randomUUID().toString() + "@bongiorno.org";
-    }
 
     public static String hexString(int byteCount) {
         return prvtHexString(S_RNG,byteCount);

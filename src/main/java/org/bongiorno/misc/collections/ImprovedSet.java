@@ -41,6 +41,15 @@ public class ImprovedSet<T> extends QuickCollection<T> implements Set<T> {
         return new ImprovedSetStream<>( super.filter(p));
     }
 
+    @Override
+    public boolean equals(Object o) {
+        return delegate.equals(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return delegate.hashCode();
+    }
 
     public static class ImprovedSetStream<T> extends ImprovedStream<T> {
         public ImprovedSetStream(ImprovedStream<T> delegate) {
