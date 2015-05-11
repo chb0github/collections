@@ -90,4 +90,20 @@ public class ImprovedList<T> extends QuickCollection<T> implements List<T>{
     public ImprovedList<T> subList(int fromIndex) {
         return new ImprovedList<> (((List<T>)super.delegate).subList(fromIndex,this.size()));
     }
+
+    public static class ImprovedListStream<T> extends ImprovedStream<T> {
+        public ImprovedListStream(ImprovedStream<T> delegate) {
+            super(delegate);
+        }
+
+        public <O> ImprovedList<O> transform(Function<? super T, ? extends O> f) {
+            return delegate.map(f).collect(toCollection(ImprovedList::new));
+        }
+
+        public  ImprovedList<T> collect() {
+            return delegate.collect(toCollection(ImprovedList::new));
+        }
+
+
+    }
 }

@@ -1,10 +1,12 @@
 package org.bongiorno.misc.collections;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.stream.Collector;
 
 import static java.util.stream.Collectors.toCollection;
 
@@ -41,6 +43,7 @@ public class ImprovedSet<T> extends QuickCollection<T> implements Set<T> {
         return new ImprovedSetStream<>( super.filter(p));
     }
 
+
     @Override
     public boolean equals(Object o) {
         return delegate.equals(o);
@@ -52,12 +55,18 @@ public class ImprovedSet<T> extends QuickCollection<T> implements Set<T> {
     }
 
     public static class ImprovedSetStream<T> extends ImprovedStream<T> {
-        public ImprovedSetStream(ImprovedStream<T> delegate) {
+        private ImprovedSetStream(ImprovedStream<T> delegate) {
             super(delegate);
         }
 
-        public ImprovedSet<T> collect() {
-            return delegate.collect(Collectors.toCollection(ImprovedSet::new));
+        public <O> ImprovedSet<O> transform(Function<? super T, ? extends O> f) {
+            return delegate.map(f).collect(toCollection(ImprovedSet::new));
         }
+
+
+        public  ImprovedSet<T> collect() {
+            return delegate.collect(toCollection(ImprovedSet::new));
+        }
+
     }
 }

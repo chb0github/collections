@@ -104,9 +104,6 @@ public class ImprovedStream<T> implements Stream<T>{
         return delegate.findFirst();
     }
 
-    public <O> ImprovedCollection<O> transform(Function<? super T, ? extends O> f) {
-        return delegate.map(f).collect(toCollection(ImprovedList::new));
-    }
 
     @Override
     public <R> ImprovedStream<R> flatMap(Function<? super T, ? extends Stream<? extends R>> mapper) {
