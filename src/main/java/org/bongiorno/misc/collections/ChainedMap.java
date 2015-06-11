@@ -9,8 +9,11 @@ import java.util.Map;
  */
 public class ChainedMap<K, V> extends QuickMap<K, V> {
 
-    public ChainedMap(Map<K, V> copy) {
-        super(copy);
+    public ChainedMap(){
+    }
+
+    public ChainedMap(Map<K, V> delegate) {
+        super(delegate);
     }
 
     public ChainedMap<K, V> thenPut(K key, V value) {

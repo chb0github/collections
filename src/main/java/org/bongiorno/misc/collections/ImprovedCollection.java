@@ -55,7 +55,11 @@ public interface ImprovedCollection<T> extends Collection<T>, Serializable {
         return new ImprovedStream<>(this.stream().filter(p));
     }
 
-
+    public default T findAny(Predicate<T> p){
+        return this.filter(p)
+                .findAny()
+                .orElse(null);
+    }
 
     public default boolean anyMatch(Predicate<? super T> predicate) {
         return this.stream().anyMatch(predicate);
