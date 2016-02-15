@@ -1,7 +1,7 @@
-package org.bongiorno.utils;
+package org.bongiorno.collections;
 
 import com.sun.org.apache.bcel.internal.util.ByteSequence;
-import org.bongiorno.misc.collections.SuperTypeSearchingLazyMap;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.Closeable;
@@ -13,11 +13,12 @@ import java.util.zip.GZIPInputStream;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNull;
-import static org.bongiorno.misc.collections.WSCollections.*;
+import static org.bongiorno.collections.Collections.*;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 
-public class WSCollectionsTest {
+public class CollectionsTest {
 
     @Test
     public void testDelimiter() {
@@ -50,7 +51,7 @@ public class WSCollectionsTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testOnDupMap() {
-        Map<String, Void> test = exceptionOnDuplicateMap(new HashMap<String, Void>());
+        Map<String, Void> test = exceptionOnDuplicateMap(new HashMap<>());
         test.put("Christian", null);
         test.put("George", null);
         test.put("Christian", null);
@@ -59,7 +60,7 @@ public class WSCollectionsTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testOnDubSortedMap() {
-        Map<String, Void> test = exceptionOnDuplicateMap(new TreeMap<String, Void>());
+        Map<String, Void> test = exceptionOnDuplicateMap(new TreeMap<>());
         test.put("Christian", null);
         test.put("George", null);
         test.put("Christian", null);
@@ -67,7 +68,7 @@ public class WSCollectionsTest {
 
     @Test
     public void testOnDupSet() {
-        Set<String> test = exceptionOnDuplicateSet(new HashSet<String>());
+        Set<String> test = exceptionOnDuplicateSet(new HashSet<>());
         test.add("Christian");
         test.add("George");
         try {
@@ -98,5 +99,33 @@ public class WSCollectionsTest {
         assertEquals("Closeable", map.get(PipedInputStream.class));
         assertNull(map.get(Set.class));
         assertNull(map.get(null));
+    }
+
+    @Test
+    public void testSelectAFew() throws Exception {
+
+        // test as List<>
+        List<String> things = Arrays.asList("A", "B", "AA", "BB", "AAA", "BBB");
+        List<String> results = Random.selectAFew(3, things);
+        Assert.assertEquals(3, results.size());
+        assertTrue(things.containsAll(results));
+
+        // test as []
+        List<String> strings = Random.selectAFew(3, "A", "B", "AA", "BB", "AAA", "BBB");
+        Assert.assertEquals(3, strings.size());
+        assertTrue(things.containsAll(strings));
+
+        // test as iterable
+
+//        try {
+//            Random.selectAFew(3, new HashSet<>(things));
+//        }
+//        catch (IllegalArgumentException e) {
+//            // this method can only execute on a list or an array.
+//            // it is not possible for a iterable to produce a consistent result
+//            // and the JVM will interpret the above line as T ... = size() 1
+//            // name 1 element of type iterable.
+//        }
+
     }
 }

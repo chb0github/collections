@@ -1,6 +1,6 @@
-### Misc library package
+### Collection related library package
 
-Useful stuff. Particularly the j8 stream stuff. MAN! Is that verbose (but handy).
+Reduce the verbosity of j8 stream manipulation on collections and try like hell to make Java less chatty.
 
 
 [![Book session on Codementor](https://cdn.codementor.io/badges/book_session_github.svg)](https://www.codementor.io/chb0codementor?utm_source=github&utm_medium=button&utm_term=chb0codementor&utm_campaign=github)

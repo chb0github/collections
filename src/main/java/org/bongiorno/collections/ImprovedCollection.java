@@ -1,4 +1,4 @@
-package org.bongiorno.misc.collections;
+package org.bongiorno.collections;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -38,8 +38,8 @@ public interface ImprovedCollection<T> extends Collection<T>, Serializable {
         return new QuickCollection<>(sadCollection);
     }
 
-    public default <K> ImprovedMap<K, T> toMap(Function<? super T, ? extends K> classifier) {
-        return this.stream().collect(Collectors.toMap(classifier, Function.identity(), noDupKeys(), ImprovedMap::new));
+    public default <K> ImprovedMap<K, T> indexBy(Function<? super T, ? extends K> indexer) {
+        return this.stream().collect(Collectors.toMap(indexer, Function.identity(), noDupKeys(), ImprovedMap::new));
     }
 
     public default <K, U> ImprovedMap<K, U> toMap(Function<? super T, ? extends K> fOfK, Function<? super T, ? extends U> fOfV) {

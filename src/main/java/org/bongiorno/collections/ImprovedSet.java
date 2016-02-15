@@ -1,4 +1,4 @@
-package org.bongiorno.misc.collections;
+package org.bongiorno.collections;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Collector;
 
 import static java.util.stream.Collectors.toCollection;
 

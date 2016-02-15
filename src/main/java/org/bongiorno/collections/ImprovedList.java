@@ -1,8 +1,7 @@
-package org.bongiorno.misc.collections;
+package org.bongiorno.collections;
 
 import java.util.*;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 import static java.util.stream.Collectors.toCollection;
 

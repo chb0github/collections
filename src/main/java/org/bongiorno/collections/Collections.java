@@ -1,13 +1,10 @@
-package org.bongiorno.misc.collections;
+package org.bongiorno.collections;
 
-
-import org.bongiorno.misc.collections.QuickCollection;
-import org.bongiorno.misc.collections.QuickMap;
 
 import java.util.*;
 import java.util.function.Function;
 
-public final class WSCollections {
+public final class Collections {
 
 
     public static <K, V> Map<K, V> exceptionOnDuplicateMap(Map<K, V> m) {

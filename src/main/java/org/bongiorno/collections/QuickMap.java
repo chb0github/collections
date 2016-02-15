@@ -1,9 +1,7 @@
-package org.bongiorno.misc.collections;
+package org.bongiorno.collections;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * A delegating wrapper for a Map.  You can extend this class to quickly implement Map wrappers.
