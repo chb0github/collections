@@ -2,10 +2,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <name>Misc resources Shared between projects for chb0github</name>
+    <name>Collection manipulations</name>
     <groupId>org.bongiorno</groupId>
     <artifactId>collections</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <description>Improve the java 8 collections and add some other collection related stuff</description>
@@ -14,7 +14,7 @@
     <!--https://oss.sonatype.org/#welcome-->
     <!-- staging repos - close - then release. Your libs are at the bottom-->
 
-    <url>https://github.com/chb0github/misc</url>
+    <url>https://github.com/chb0github/collections</url>
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
@@ -32,8 +32,8 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git@github.com:chb0github/misc.git</connection>
-        <url>https://github.com/chb0github/misc</url>
+        <connection>scm:git:git@github.com:chb0github/collections.git</connection>
+        <url>https://github.com/chb0github/collections</url>
     </scm>
 
 
