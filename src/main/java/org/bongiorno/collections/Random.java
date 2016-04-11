@@ -3,6 +3,7 @@ package org.bongiorno.collections;
 
 import java.security.SecureRandom;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Random {
 
@@ -55,11 +56,11 @@ public class Random {
     }
 
     public static int numberBetween(int start, int endExclusive) {
-        throw new UnsupportedOperationException("Work on this");
+        return ThreadLocalRandom.current().nextInt(start, endExclusive);
     }
 
-    public int numberBetween(double start, double endExclusive) {
-        throw new UnsupportedOperationException("Work on this");
+    public static double numberBetween(double start, double endExclusive) {
+        return ThreadLocalRandom.current().nextDouble(start, endExclusive);
     }
 
     public static byte[] someData(int count) {
