@@ -3,14 +3,12 @@ package org.bongiorno.collections;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
-import java.util.function.BinaryOperator;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
+import java.util.function.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toCollection;
+import static org.bongiorno.collections.ImprovedMap.noDupKeys;
 
 /**
  * @author chribong
@@ -65,10 +63,5 @@ public interface ImprovedCollection<T> extends Collection<T>, Serializable {
         return this.stream().anyMatch(predicate);
     }
 
-    public static <T> BinaryOperator<T> noDupKeys() {
-        return (u, v) -> {
-            throw new IllegalStateException(String.format("Duplicate key %s", u));
-        };
-    }
 
 }

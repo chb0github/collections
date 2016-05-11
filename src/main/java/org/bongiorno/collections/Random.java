@@ -2,12 +2,15 @@ package org.bongiorno.collections;
 
 
 import java.security.SecureRandom;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Random {
+public class Random extends SecureRandom{
 
     private static final java.util.Random S_RNG = new SecureRandom();
+
 
     public static long nextId() {
         return Math.abs(S_RNG.nextLong());
@@ -18,6 +21,14 @@ public class Random {
         return hexString(32);
     }
 
+    public static LocalDate randomDate() {
+        return LocalDate.now().plusDays(numberBetween(-10000,10000));
+    }
+
+
+    public static LocalDate randomDate(LocalDate anchor) {
+        return anchor.plusDays(numberBetween(-10000,10000));
+    }
 
     public static String hexString(int byteCount) {
         return prvtHexString(S_RNG, byteCount);
@@ -45,6 +56,7 @@ public class Random {
         int index = S_RNG.nextInt(things.length);
         return things[index];
     }
+
 
     public static <T> T selectOne(List<T> things) {
         int index = S_RNG.nextInt(things.size());
