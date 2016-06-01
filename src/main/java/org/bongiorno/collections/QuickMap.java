@@ -84,4 +84,9 @@ public class QuickMap<K,V> implements Map<K,V> {
     public int hashCode() {
         return delegate.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return String.join("\r\n",this.entrySet().transform(Map.Entry::toString));
+    }
 }
